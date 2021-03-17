@@ -1,13 +1,13 @@
 'use strict';
 
 const path = require('path');
-const defu = require('defu');
-const consola = require('consola');
+const defu2 = require('defu');
+const consola2 = require('consola');
 const fs = require('fs');
 const crypto = require('crypto');
 const require$$0 = require('worker_threads');
 const util = require('util');
-const stream = require('stream');
+const stream2 = require('stream');
 const fsExtra = require('fs-extra');
 const upath = require('upath');
 const fetch = require('node-fetch');
@@ -16,35 +16,14 @@ const Throttle = require('promise-parallel-throttle');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-function _interopNamespace(e) {
-	if (e && e.__esModule) return e;
-	var n = Object.create(null);
-	if (e) {
-		Object.keys(e).forEach(function (k) {
-			if (k !== 'default') {
-				var d = Object.getOwnPropertyDescriptor(e, k);
-				Object.defineProperty(n, k, d.get ? d : {
-					enumerable: true,
-					get: function () {
-						return e[k];
-					}
-				});
-			}
-		});
-	}
-	n['default'] = e;
-	return Object.freeze(n);
-}
-
 const path__default = /*#__PURE__*/_interopDefaultLegacy(path);
-const defu__default = /*#__PURE__*/_interopDefaultLegacy(defu);
-const consola__default = /*#__PURE__*/_interopDefaultLegacy(consola);
+const defu2__default = /*#__PURE__*/_interopDefaultLegacy(defu2);
+const consola2__default = /*#__PURE__*/_interopDefaultLegacy(consola2);
 const fs__default = /*#__PURE__*/_interopDefaultLegacy(fs);
 const crypto__default = /*#__PURE__*/_interopDefaultLegacy(crypto);
 const require$$0__default = /*#__PURE__*/_interopDefaultLegacy(require$$0);
-const stream__default = /*#__PURE__*/_interopDefaultLegacy(stream);
+const stream2__default = /*#__PURE__*/_interopDefaultLegacy(stream2);
 const fetch__default = /*#__PURE__*/_interopDefaultLegacy(fetch);
-const Throttle__namespace = /*#__PURE__*/_interopNamespace(Throttle);
 
 const isStream = stream =>
 	stream !== null &&
@@ -222,7 +201,7 @@ var hasha_1 = hasha;
 var name = "@nuxt/image";
 var version = "0.4.1";
 
-const logger = consola__default['default'].withScope("@nuxt/image");
+const logger = consola2__default['default'].withScope("@nuxt/image");
 const pkg = {name, version};
 function hash(value, length = 6) {
   return hasha_1(value).substr(0, length);
@@ -235,7 +214,7 @@ function pick(obj, keys) {
   return newobj;
 }
 
-const pipeline = util.promisify(stream__default['default'].pipeline);
+const pipeline = util.promisify(stream2__default['default'].pipeline);
 function setupStaticGeneration(nuxt, options) {
   const staticImages = {};
   nuxt.hook("vue-renderer:ssr:prepareContext", (renderContext) => {
@@ -260,7 +239,7 @@ function setupStaticGeneration(nuxt, options) {
         outDir: upath.resolve(generateDir, "_nuxt/image")
       });
     });
-    await Throttle__namespace.all(downloads);
+    await Throttle.all(downloads);
   });
 }
 async function downloadImage({url, name, outDir}) {
@@ -346,7 +325,7 @@ async function imageModule(moduleOptions) {
     static: {},
     intersectOptions: {}
   };
-  const options = defu__default['default'](moduleOptions, nuxt.options.image, defaults);
+  const options = defu2__default['default'](moduleOptions, nuxt.options.image, defaults);
   options.provider = process.env.NUXT_IMAGE_PROVIDER || options.provider || "static";
   const imageOptions = pick(options, [
     "screens",
@@ -375,7 +354,7 @@ async function imageModule(moduleOptions) {
       sharp: options.sharp
     })
   });
-  nuxt.options.build.loaders = defu__default['default']({
+  nuxt.options.build.loaders = defu2__default['default']({
     vue: {transformAssetUrls: {"nuxt-img": "src", "nuxt-picture": "src"}}
   }, nuxt.options.build.loaders || {});
   nuxt.hook("generate:before", () => {
