@@ -239,7 +239,7 @@ function setupStaticGeneration(nuxt, options) {
         outDir: upath.resolve(generateDir, "_nuxt/image")
       });
     });
-    await Throttle.all(downloads);
+    await Throttle.all(downloads, {maxInProgress: options.providerRequests});
   });
 }
 async function downloadImage({url, name, outDir}) {
@@ -323,7 +323,8 @@ async function imageModule(moduleOptions) {
     internalUrl: "",
     providers: {},
     static: {},
-    intersectOptions: {}
+    intersectOptions: {},
+    providerRequests: 50
   };
   const options = defu2__default['default'](moduleOptions, nuxt.options.image, defaults);
   options.provider = process.env.NUXT_IMAGE_PROVIDER || options.provider || "static";

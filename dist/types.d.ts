@@ -97,6 +97,7 @@ interface ModuleOptions extends ImageProviders {
   internalUrl: string
   intersectOptions: CreateImageOptions['intersectOptions']
   providers: { [name: string]: InputProvider | any } & ImageProviders
+  providerRequests: number
 }
 
 declare module '@nuxt/types' {

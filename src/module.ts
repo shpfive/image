@@ -28,7 +28,8 @@ async function imageModule (moduleOptions: ModuleOptions) {
     internalUrl: '',
     providers: {},
     static: {},
-    intersectOptions: {}
+    intersectOptions: {},
+    providerRequests: 50
   }
 
   const options: ModuleOptions = defu(moduleOptions, nuxt.options.image, defaults)
