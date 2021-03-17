@@ -239,7 +239,7 @@ function setupStaticGeneration(nuxt, options) {
         outDir: upath.resolve(generateDir, "_nuxt/image")
       });
     });
-    await Throttle.all(downloads);
+    await Throttle.all(downloads, {ignoreIsFunctionCheck: true});
   });
 }
 async function downloadImage({url, name, outDir}) {

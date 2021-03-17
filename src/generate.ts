@@ -38,7 +38,7 @@ export function setupStaticGeneration (nuxt: any, options: ModuleOptions) {
         outDir: resolve(generateDir, '_nuxt/image' /* TODO: staticImagesBase */)
       })
     })
-    await Throttle.all(downloads)
+    await Throttle.all(downloads, {ignoreIsFunctionCheck: true})
   })
 }
 
