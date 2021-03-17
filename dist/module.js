@@ -229,7 +229,7 @@ function setupStaticGeneration(nuxt, options) {
   });
   nuxt.hook("generate:done", async () => {
     const {dir: generateDir} = nuxt.options.generate;
-    const downloads = Object.entries(staticImages).map(([url, name]) => {
+    const downloads = Object.entries(staticImages).map(([url, name]) => () => {
       if (!ufo.hasProtocol(url)) {
         url = ufo.joinURL(options.internalUrl, url);
       }
@@ -239,7 +239,7 @@ function setupStaticGeneration(nuxt, options) {
         outDir: upath.resolve(generateDir, "_nuxt/image")
       });
     });
-    await Throttle.all(downloads, {ignoreIsFunctionCheck: true});
+    await Throttle.all(downloads);
   });
 }
 async function downloadImage({url, name, outDir}) {

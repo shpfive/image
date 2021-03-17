@@ -28,7 +28,7 @@ export function setupStaticGeneration (nuxt: any, options: ModuleOptions) {
 
   nuxt.hook('generate:done', async () => {
     const { dir: generateDir } = nuxt.options.generate
-    const downloads = Object.entries(staticImages).map(([url, name]) => {
+    const downloads = Object.entries(staticImages).map(([url, name]) => () => {
       if (!hasProtocol(url)) {
         url = joinURL(options.internalUrl, url)
       }
@@ -38,7 +38,7 @@ export function setupStaticGeneration (nuxt: any, options: ModuleOptions) {
         outDir: resolve(generateDir, '_nuxt/image' /* TODO: staticImagesBase */)
       })
     })
-    await Throttle.all(downloads, {ignoreIsFunctionCheck: true})
+    await Throttle.all(downloads)
   })
 }
 
