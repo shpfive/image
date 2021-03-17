@@ -8,6 +8,7 @@ import fetch from 'node-fetch'
 import { joinURL, hasProtocol, parseURL } from 'ufo'
 import { ModuleOptions, MapToStatic, ResolvedImage } from './types'
 import { hash, logger } from './utils'
+import * as Throttle from 'promise-parallel-throttle';
 
 const pipeline = promisify(stream.pipeline)
 
@@ -37,7 +38,7 @@ export function setupStaticGeneration (nuxt: any, options: ModuleOptions) {
         outDir: resolve(generateDir, '_nuxt/image' /* TODO: staticImagesBase */)
       })
     })
-    await Promise.all(downloads)
+    await Throttle.all(downloads)
   })
 }
 

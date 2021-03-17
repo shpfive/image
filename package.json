@@ -33,6 +33,7 @@
     "ipx": "^0.6.0",
     "is-https": "^3.0.2",
     "node-fetch": "^2.6.1",
+    "promise-parallel-throttle": "^3.3.0",
     "requrl": "^3.0.2",
     "ufo": "^0.6.6",
     "upath": "^2.0.1"
