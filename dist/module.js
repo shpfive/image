@@ -222,7 +222,7 @@ function setupStaticGeneration(nuxt, options) {
     renderContext.image.mapToStatic = function({url, format}) {
       if (!staticImages[url]) {
         const ext = format && `.${format}` || upath.extname(ufo.parseURL(url).pathname) || ".png";
-        staticImages[url] = upath.basename(ufo.parseURL(url).pathname) + hash(url) + ext;
+        staticImages[url] = upath.basename(ufo.parseURL(url).pathname, ext) + "-" + hash(url) + ext;
       }
       return staticImages[url];
     };
