@@ -3,7 +3,7 @@ import { createWriteStream } from 'fs'
 import { promisify } from 'util'
 import stream from 'stream'
 import { mkdirp } from 'fs-extra'
-import { dirname, join, relative, resolve, extname } from 'upath'
+import { dirname, join, relative, resolve, extname, basename } from 'upath'
 import fetch from 'node-fetch'
 import { joinURL, hasProtocol, parseURL } from 'ufo'
 import { ModuleOptions, MapToStatic, ResolvedImage } from './types'
@@ -20,7 +20,7 @@ export function setupStaticGeneration (nuxt: any, options: ModuleOptions) {
     renderContext.image.mapToStatic = <MapToStatic> function ({ url, format }: ResolvedImage) {
       if (!staticImages[url]) {
         const ext = (format && `.${format}`) || extname(parseURL(url).pathname) || '.png'
-        staticImages[url] = hash(url) + ext
+        staticImages[url] = basename(parseURL(url).pathname) + hash(url) + ext
       }
       return staticImages[url]
     }
